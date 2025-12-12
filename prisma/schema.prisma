@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+  moduleFormat  = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Group {
+  id              Int       @id @default(autoincrement())
+  homophones      Boolean
+  additionalToId  Int       @map("additional_to_id")
+  createdAt       DateTime  @default(now()) @map("created_at")
+
+  words           Word[]
+
+  @@map("groups")
+}
+
+model Word {
+  id              Int       @id @default(autoincrement())
+  word            String
+  groupId         Int       @map("group_id")
+  createdAt       DateTime  @default(now()) @map("created_at")
+
+  group           Group     @relation(fields: [groupId], references: [id])
+
+  @@map("words")
+}
