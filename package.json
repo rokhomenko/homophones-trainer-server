@@ -29,6 +29,7 @@
     "@nestjs/platform-fastify": "^11.1.9",
     "@prisma/adapter-pg": "^7.1.0",
     "@prisma/client": "^7.1.0",
+    "argon2": "^0.44.0",
     "dotenv": "^17.2.3",
     "pg": "^8.16.3",
     "postgres": "^3.4.7",

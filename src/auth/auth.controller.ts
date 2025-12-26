@@ -19,4 +19,9 @@ export class AuthController {
 	getUserInfo(@Request() request) {
 		return request.user
 	}
+
+	@Post('register')
+	async register(@Body() input: {email: string, password: string}) {
+		return this.AuthService.register(input)
+	}
 }
