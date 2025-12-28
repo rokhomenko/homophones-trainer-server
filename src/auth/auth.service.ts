@@ -1,12 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { UsersService } from '../users/users.service';
-import { JwtService } from '@nestjs/jwt';
+import { Injectable, UnauthorizedException } from '@nestjs/common'
+import { UsersService } from '../users/users.service'
+import { JwtService } from '@nestjs/jwt'
 import * as argon2 from 'argon2'
-
-type AuthInput = {
-	email: string
-	password: string
-}
+import { AuthDto } from './dto/auth.dto'
 
 type SignInData = {
 	userId: number
@@ -26,7 +22,7 @@ export class AuthService {
 		private JwtService: JwtService
 	) {}
 
-	async authenticate(input: AuthInput): Promise<AuthResult> {
+	async authenticate(input: AuthDto): Promise<AuthResult> {
 		const user = await this.validateUser(input)
 
 		if(!user) {
@@ -36,7 +32,7 @@ export class AuthService {
 		return this.signIn(user)
 	}
 
-	async validateUser(input: AuthInput): Promise<SignInData | null> {
+	async validateUser(input: AuthDto): Promise<SignInData | null> {
 		const user = await this.UsersService.findByEmail(input.email)
 
 
@@ -62,7 +58,7 @@ export class AuthService {
 		return { accessToken: accessToken, userId: user.userId, email: user.email}
 	}
 
-	async register(input: AuthInput) {
+	async register(input: AuthDto) {
 		const hashedPassword = await argon2.hash(input.password)
 
 		const newUser = await this.UsersService.create({
