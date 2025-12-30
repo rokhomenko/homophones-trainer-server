@@ -1,12 +1,13 @@
-import { Module } from '@nestjs/common'
+import { Module, ClassSerializerInterceptor } from '@nestjs/common'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { PrismaModule } from './prisma/prisma.module'
 import { WordsModule } from './words/words.module'
 import { ConfigModule } from '@nestjs/config'
-import { AuthModule } from './auth/auth.module';
-import { UsersModule } from './users/users.module';
-import { UsersService } from './users/users.service';
+import { AuthModule } from './auth/auth.module'
+import { UsersModule } from './users/users.module'
+import { UsersService } from './users/users.service'
+import { APP_INTERCEPTOR, Reflector } from '@nestjs/core'
 
 @Module({
   imports: [
@@ -19,6 +20,11 @@ import { UsersService } from './users/users.service';
     UsersModule,
   ],
   controllers: [AppController],
-  providers: [AppService, UsersService],
+  providers: [AppService, UsersService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: ClassSerializerInterceptor,
+    },
+  ],
 })
 export class AppModule {}
