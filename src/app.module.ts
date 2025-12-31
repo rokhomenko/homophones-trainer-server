@@ -20,7 +20,7 @@ import { APP_INTERCEPTOR, Reflector } from '@nestjs/core'
     UsersModule,
   ],
   controllers: [AppController],
-  providers: [AppService, UsersService,
+  providers: [AppService,
     {
       provide: APP_INTERCEPTOR,
       useClass: ClassSerializerInterceptor,
