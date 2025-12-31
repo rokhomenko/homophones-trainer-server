@@ -6,7 +6,6 @@ import { WordsModule } from './words/words.module'
 import { ConfigModule } from '@nestjs/config'
 import { AuthModule } from './auth/auth.module'
 import { UsersModule } from './users/users.module'
-import { UsersService } from './users/users.service'
 import { APP_INTERCEPTOR, Reflector } from '@nestjs/core'
 
 @Module({
@@ -20,7 +19,7 @@ import { APP_INTERCEPTOR, Reflector } from '@nestjs/core'
     UsersModule,
   ],
   controllers: [AppController],
-  providers: [AppService, UsersService,
+  providers: [AppService,
     {
       provide: APP_INTERCEPTOR,
       useClass: ClassSerializerInterceptor,

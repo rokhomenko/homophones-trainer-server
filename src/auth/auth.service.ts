@@ -65,6 +65,6 @@ export class AuthService {
 			email: input.email,
 			password: hashedPassword
 		})
-		return newUser
+		return this.signIn({ userId: newUser.userId, email: newUser.email})
 	}
 }
