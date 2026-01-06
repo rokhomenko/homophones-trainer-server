@@ -1,10 +1,10 @@
 import { Module } from "@nestjs/common"
 import { LearnedService } from "./learned.service"
 import { LearnedController } from "./learned.controller"
-import { PrismaClient } from "src/generated/prisma/client"
+import { PrismaModule } from "src/prisma/prisma.module"
 
 @Module({
-  imports: [PrismaClient],
+  imports: [PrismaModule],
   controllers: [LearnedController],
   providers: [LearnedService]
 })
