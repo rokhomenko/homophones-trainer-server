@@ -5,7 +5,7 @@ import { LearnedService } from "./learned.service"
 export class LearnedController {
   constructor(private learnedService: LearnedService) {}
 
-  @Get()
+  @Get(':userId')
   getUserGroups(@Param('userId') userId: string) {
     return this.learnedService.getGroupsForUser(Number(userId))
   }
