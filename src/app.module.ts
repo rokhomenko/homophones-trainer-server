@@ -7,6 +7,7 @@ import { ConfigModule } from '@nestjs/config'
 import { AuthModule } from './auth/auth.module'
 import { UsersModule } from './users/users.module'
 import { APP_INTERCEPTOR, Reflector } from '@nestjs/core'
+import { LearnedModule } from './learned/learned.module'
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { APP_INTERCEPTOR, Reflector } from '@nestjs/core'
     }),
     AuthModule,
     UsersModule,
+    LearnedModule,
   ],
   controllers: [AppController],
   providers: [AppService,
