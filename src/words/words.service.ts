@@ -15,6 +15,9 @@ export class WordsService {
 
 	getGroups() {
 		return this.prisma.group.findMany({
+			where: {
+				additionalToId: 0
+			},
 			include: {
 				words: true
 			}
