@@ -13,6 +13,8 @@ model User {
   email           String    @unique
   password        String
   createdAt       DateTime  @default(now()) @map("created_at")
+
+  learned         Learned[]
 }
 
 model Group {
@@ -22,6 +24,7 @@ model Group {
   createdAt       DateTime  @default(now()) @map("created_at")
 
   words           Word[]
+  learned         Learned[]
 
   @@map("groups")
 }
@@ -35,4 +38,17 @@ model Word {
   group           Group     @relation(fields: [groupId], references: [id])
 
   @@map("words")
+}
+
+model Learned {
+  id              Int       @id @default(autoincrement())
+  userId          Int       @map("user_id")
+  groupId         Int       @map("group_id")
+  createdAt       DateTime  @default(now()) @map("created_at")
+
+  user            User      @relation(fields: [userId], references: [userId])
+  group           Group     @relation(fields: [groupId], references: [id])
+
+  @@unique([userId, groupId])
+  @@map("learned")
 }
