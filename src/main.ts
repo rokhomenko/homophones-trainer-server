@@ -13,13 +13,8 @@ async function bootstrap() {
     new FastifyAdapter(),
   );
 
-  const origins: string[] = ['http://localhost:5173'];
-  if (process.env.FRONTEND_URL) {
-    origins.push(process.env.FRONTEND_URL);
-  }
-
   await app.register(cors, {
-    origin: origins,
+    origin: ['http://localhost:5173', 'https://homophones-trainer.vercel.app'],
     credentials: true,
   });
 
