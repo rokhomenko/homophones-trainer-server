@@ -1,7 +1,11 @@
-import { NestFactory } from '@nestjs/core'
-import { AppModule } from './app.module'
-import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify'
-import cors from '@fastify/cors'
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
+import {
+  FastifyAdapter,
+  NestFastifyApplication,
+} from '@nestjs/platform-fastify';
+import cors from '@fastify/cors';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -10,9 +14,17 @@ async function bootstrap() {
   );
 
   await app.register(cors, {
-    origin: 'http://localhost:5173',
+    origin: ['http://localhost:5173', 'https://homophones-trainer.vercel.app'],
     credentials: true,
   });
+
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+    }),
+  );
 
   await app.listen(process.env.PORT ?? 3000, '0.0.0.0');
 }
