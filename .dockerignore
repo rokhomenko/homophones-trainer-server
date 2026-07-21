@@ -1,0 +1,17 @@
+node_modules
+dist
+.git
+.gitignore
+src/generated/prisma
+.env
+.env.*
+!.env.example
+coverage
+test
+*.md
+skills-lock.json
+dump.sql
+.eslintrc*
+.prettierrc
+.vscode
+.idea
